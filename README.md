@@ -1,15 +1,20 @@
 # OLTE SPORT — Inventario
 
-Sitio estático del inventario de chalecos reductores de hombre y mujer.
+Sitio de inventario de chalecos reductores de hombre y mujer.
 
-## Publicar con GitHub Pages
+## Base de datos Google Sheets
 
-1. Sube el contenido de este directorio a la raíz de un repositorio de GitHub.
-2. En **Settings → Pages**, elige **Deploy from a branch**, rama `main`, carpeta `/ (root)`.
-3. Abre la URL que GitHub Pages genere.
+El sitio incluye conexión a Google Sheets mediante Google Apps Script. El usuario debe:
 
-## Datos y privacidad
+1. Abrir **Extensiones → Apps Script** desde la hoja de OLTE SPORT.
+2. Reemplazar `Code.gs` con `apps-script/Code.gs` y guardar.
+3. Ejecutar `setupOlteSportDatabase` una vez y autorizar el acceso.
+4. Implementar como **Aplicación web**, ejecutar como **Yo** y dar acceso a **Solo yo**.
+5. Copiar la URL terminada en `/exec` y pegarla en el sitio, en **Respaldos → Base de datos Google Sheets**.
+6. Elegir si carga desde Sheets o sube los datos de este navegador. La segunda opción reemplaza las filas de datos de las pestañas; descarga un respaldo JSON primero.
 
-La aplicación guarda stock, ventas y configuración en el almacenamiento local del navegador. GitHub Pages no sincroniza estos datos entre usuarios o dispositivos. Exporta una copia JSON desde **Respaldos** para conservarla o moverla a otro navegador.
+La app mantiene una copia local en cada navegador y sincroniza con la hoja después de conectarla. Para empezar desde otro equipo, usa **Cargar datos desde Sheets**. Mantén la implementación de Apps Script restringida a **Solo yo**.
 
-Los costos y precios no vienen precargados en este paquete público. Después de abrir el sitio, puedes configurarlos en **Respaldos → Costos y precios**. El repositorio y el código fuente de un sitio GitHub Pages público son visibles para cualquiera.
+## GitHub Pages
+
+En **Settings → Pages**, elegir **Deploy from a branch**, rama `main`, carpeta `/ (root)`.
