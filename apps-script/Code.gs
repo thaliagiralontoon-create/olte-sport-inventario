@@ -8,7 +8,7 @@ function setupOlteSportDatabase() {
       ['Chaleco de mujer','XS',0],['Chaleco de mujer','S',0],['Chaleco de mujer','M',0],['Chaleco de mujer','L',0],['Chaleco de mujer','XL',0],['Chaleco de mujer','XXL',0]]},
     {name:'Ventas',headers:['ID','Fecha','Producto','Talla','Cantidad','Costo unitario (S/)','Precio unitario (S/)','Canal','Nota','Anulada']},
     {name:'Movimientos',headers:['ID','Fecha','Tipo de movimiento','Producto','Talla','Cantidad','Detalle','ID relacionado']},
-    {name:'Configuracion',headers:['Producto','Costo unitario (S/)','Precio de venta (S/)','Umbral de bajo stock'],rows:[['Chaleco de hombre',32,65,3],['Chaleco de mujer',28,60,3]]}
+    {name:'Configuracion',headers:['Producto','Costo unitario (S/)','Precio de venta (S/)','Umbral de bajo stock'],rows:[['Chaleco de hombre',30,65,3],['Chaleco de mujer',28,60,3]]}
   ];
   defs.forEach(d=>{
     let sh=ss.getSheetByName(d.name); if(!sh) sh=ss.insertSheet(d.name);
@@ -45,7 +45,7 @@ function readState_(){
   if(shSales&&shSales.getLastRow()>1) shSales.getRange(2,1,shSales.getLastRow()-1,10).getValues().forEach(r=>sales.push({id:String(r[0]),date:dateString_(r[1]),type:productType_(r[2]),size:String(r[3]),qty:Number(r[4])||0,cost:Number(r[5])||0,price:Number(r[6])||0,channel:String(r[7]||''),note:String(r[8]||''),voided:r[9]===true||String(r[9]).toLowerCase()==='true'}));
   const moves=[]; const shMoves=ss.getSheetByName('Movimientos');
   if(shMoves&&shMoves.getLastRow()>1) shMoves.getRange(2,1,shMoves.getLastRow()-1,8).getValues().forEach(r=>moves.push({id:String(r[0]),date:dateString_(r[1]),kind:String(r[2]),type:productType_(r[3]),size:String(r[4]),qty:Number(r[5])||0,detail:String(r[6]||''),ref:String(r[7]||'')}));
-  const prices={Hombre:{cost:32,price:65},Mujer:{cost:28,price:60}}; let lowStock=3;
+  const prices={Hombre:{cost:30,price:65},Mujer:{cost:28,price:60}}; let lowStock=3;
   const conf=ss.getSheetByName('Configuracion');
   if(conf&&conf.getLastRow()>1) conf.getRange(2,1,conf.getLastRow()-1,4).getValues().forEach(r=>{let t=productType_(r[0]);if(prices[t]){prices[t]={cost:Number(r[1])||0,price:Number(r[2])||0};lowStock=Number(r[3])||0;}});
   return {stock,sales,moves,settings:{lowStock,prices}};
